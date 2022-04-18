@@ -1,0 +1,135 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<head>
+   
+</head>
+
+<body>
+
+<!-- Main Wrapper Start -->
+<div id="main-wrapper" class="section">
+    
+
+       
+    <!-- Page Banner Section Start-->
+    <div class="page-banner-section section" style="background-image: url({% static 'img/bg/page-banner.jpg' %})">
+        <div class="container">
+            <div class="row">
+                
+                <!-- Page Title Start -->
+                <div class="page-title text-center col">
+                    <h1>Cart</h1>
+                </div><!-- Page Title End -->
+                
+            </div>
+        </div>
+    </div><!-- Page Banner Section End-->
+    
+       
+    <!-- Cart Section Start-->
+    <div class="cart-section section pt-120 pb-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                   
+                    <div class="table-responsive mb-30">
+                        <table class="table cart-table text-center">
+                            
+                            <!-- Table Head -->
+                            {% if carts %}
+                            <thead>
+                                <tr>
+                                    <th class="number">#</th>
+                                    <th class="image">image</th>
+                                    <th class="name">product name</th>
+                                    <th class="qty">quantity</th>
+                                    <th class="price">price</th>
+                                    <th class="total">totle</th>
+                                    <th class="remove">remove</th>
+                                </tr>
+                            </thead>
+                            
+                            <!-- Table Body -->
+                            <tbody>
+                                {% for i in carts %}
+                                <tr>
+                                    <td><span class="cart-number">1</span></td>
+                                    <td><a href="{% url 'product_detail' pk=i.product.pk %}" class="cart-pro-image"><img src="{{i.product.product_image.url}}"height="75px" width="75px" alt="" /></a></td>
+                                    <td><a href="#" class="cart-pro-title">{{i.product.product_name}}</a></td>
+                                    <td><div class="product-quantity">
+                                        
+                                        <input type="text" value="{{i.product_qty}}" name="qtybox">
+                                        
+                                    </div></td>
+                                    <td><p class="cart-pro-price">Rs.{{i.product_price}}</p></td>
+                                    <td><p class="cart-price-total">Rs.{{i.total_price}}</p></td>
+                                    <td>
+                                        <a href="{% url 'remove_from_cart' pk=i.product.pk %}">
+                                        <button class="cart-pro-remove"><i class="fa fa-trash-o"></i></button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="row">
+                       
+                        <!-- Cart Action -->
+                        <div class="cart-action col-lg-4 col-md-6 col-12 mb-30">
+                            <a href="{% url 'shop' %}" class="button">Continiue Shopping</a>
+                            <button class="button">update cart</button>
+                        </div>
+                        
+                        <!-- Cart Cuppon -->
+                        <div class="cart-cuppon col-lg-4 col-md-6 col-12 mb-30">
+                            <h4 class="title">Discount Code</h4>
+                            <p>Enter your coupon code if you have</p>
+                            <form action="#" class="cuppon-form">
+                                <input type="text" placeholder="Cuppon Code">
+                                <button class="button">apply coupon</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Cart Checkout Progress -->
+                        <div class="cart-checkout-process col-lg-4 col-md-6 col-12 mb-30">
+                            <h4 class="title">Process Checkout</h4>
+                            <p><span>Subtotal</span><span>Rs.{{final_price}}</span></p>
+                            <h5><span>Grand total</span><span>Rs.{{final_price}}</span></h5>
+                            
+
+                            <a href="{% url 'checkout' %}">
+                            <button class="button">process to checkout</button>
+                            </a>
+                            {% else %}
+                                <h3 align="center">*No Products in cart*<br><br><br><br></h3>    
+                            {% endif %}
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div><!-- Cart Section End-->
+
+       
+    
+
+</div><!-- Main Wrapper End -->
+
+</body>
+
+
+</html>
+
+
+{% endblock %}

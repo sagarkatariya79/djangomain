@@ -1,0 +1,111 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<head>
+
+</head>
+<body>
+
+<!-- Main Wrapper Start -->
+<div id="main-wrapper" class="section">
+    
+       
+    <!-- Page Banner Section Start-->
+    <div class="page-banner-section section" style="background-image: url({% static 'img/bg/page-banner.jpg' %})">
+        <div class="container">
+            <div class="row">
+                
+                <!-- Page Title Start -->
+                <div class="page-title text-center col">
+                    <h1>Sign in</h1>
+                </div>
+                <!-- Page Title End -->
+                
+            </div>
+        </div>
+    </div><!-- Page Banner Section End-->
+    
+       
+    <!-- Contact Section Start-->
+    <div class="contact-section section bg-white pt-10">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-xl-10 col-12 ml-auto mr-auto">
+                    
+                    <div class="contact-wrapper" style="margin-bottom: 20px; margin-top: 10px;">
+                        <div class="row">
+                            <div class="contact-info col-lg-2 col-12">
+                                <div class="contact-social">
+                                </div>
+                            </div>
+                            <div class="contact-form col-lg-7 col-12">
+                                <h4 class="title">Sign in</h4>
+                                {% if msg %}
+                                   <font color= "red" ><b>{{msg}}</b> </font>
+                                   <br>
+                                {% endif %}
+
+                                <form name="signin" action="{% url 'signin' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="email" id="email" name="email" placeholder="Your Email">
+                                    <span id="email_error" style="color:red;"></span>
+                                    <input type="password" name="password" placeholder="Password">
+                                    <input type="submit" value="Submit">
+                                </form>
+                                    <div class="cart-bottom  clearfix" >
+                                    <a href="{% url 'forgotpassword' %}">Forgot Password</a>
+                                    </div>
+
+                                    <div class="cart-bottom  clearfix" >
+                                    <a href="{% url 'signup' %}">Signup</a>
+                                    </div>
+
+
+                                <p class="form-messege"></p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            
+            </div>
+        </div>
+    </div><!-- Contact Section End-->
+    
+
+</div><!-- Main Wrapper End -->
+<script>
+        $("#email").change(function () {
+            var email = $(this).val();
+            
+            $.ajax({
+                url: '/ajax/validate_email/',
+                data: {
+                    'email': email
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.is_taken) {
+                        document.getElementById("email_error").innerHTML="";
+                    }
+                    else{
+                        
+                        document.getElementById("email_error").innerHTML="Email Not Registered";
+                    }
+                }
+            });
+
+        });
+    </script>
+
+
+</body>
+
+</html>
+{% endblock %}

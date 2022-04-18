@@ -1,0 +1,111 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+<!-- Main Wrapper Start -->
+<div id="main-wrapper" class="section">
+    
+       
+    <!-- Page Banner Section Start-->
+    <div class="page-banner-section section" style="background-image: url({% static 'img/bg/page-banner.jpg' %})">
+        <div class="container">
+            <div class="row">
+                
+                <!-- Page Title Start -->
+                <div class="page-title text-center col">
+                    <h1>Sign up</h1>
+                </div>
+                <!-- Page Title End -->
+                
+            </div>
+        </div>
+    </div><!-- Page Banner Section End-->
+    
+       
+    <!-- Contact Section Start-->
+    <div class="contact-section section bg-white pt-10">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-xl-10 col-12 ml-auto mr-auto">
+                    
+                    <div class="contact-wrapper" style="margin-bottom: 20px; margin-top: 10px;">
+                        <div class="row">
+                            <div class="contact-info col-lg-2 col-12">
+                                <div class="contact-social">
+                                </div>
+                            </div>
+                            <div class="contact-form col-lg-7 col-12">
+                                <h4 class="title">Sign up</h4>
+                                {% if msg %}
+                                   <font color= "red" ><b>{{msg}}</b> </font>
+                                   <br>
+                                {% endif %}
+
+                                <form name="signup" enctype="multipart/form-data" action="{% url 'signup' %}" method="post">
+                                    
+                                    {% csrf_token %}
+                                    
+                                    <input type="radio" name="usertype" value="user">User
+                                    <input type="radio" name="usertype" value="seller">Seller
+            
+                                    <input type="text" name="fname" placeholder="First Name">
+                                    <input type="text" name="lname" placeholder="Last Name">
+                                    <input type="email" name="email" id="email" placeholder="Your Email">
+                                    <span id="email_error" style="color:red;"></span>
+                                    <input type="text" name="address" placeholder="Your Address">
+                                    <input type="text" name="mobile" placeholder="Mobile">
+                                    <input type="text" name="password" placeholder="Password">
+                                    <input type="text" name="cpassword" placeholder="Confirm Password">
+                                    <input type="file" name="image" >
+                                    <input type="submit" value="Submit">
+                                </form>
+                                <p class="form-messege"></p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            
+            </div>
+        </div>
+    </div><!-- Contact Section End-->
+    
+
+</div><!-- Main Wrapper End -->
+
+<script>
+        $("#email").change(function () {
+            var email = $(this).val();
+            
+            $.ajax({
+                url: '/ajax/validate_email/',
+                data: {
+                    'email': email
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.is_taken) {
+                        document.getElementById("email_error").innerHTML="Email Already Registered";
+                    }
+                    else{
+                        document.getElementById("email_error").innerHTML="";
+                    }
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
+{% endblock %}

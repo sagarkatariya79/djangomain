@@ -1,0 +1,101 @@
+{% extends 'sellerheader.html' %}
+{% load static %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<head>
+    
+</head>
+
+<body>
+
+<!-- Main Wrapper Start -->
+<div id="main-wrapper" class="section">
+    
+       
+    
+       
+    <!-- Product Section Start-->
+    <div class="product-section section pt-70 pb-60">
+        <div class="container">
+           
+            <!-- Section Title Start-->
+            <div class="row">
+                <div class="section-title text-center col mb-60">
+                    <h1>Recently Added Products</h1>
+                </div>
+            </div><!-- Section Title End-->
+            
+            <!-- Product Wrapper Start-->
+            <div class="row">
+                    
+               
+                
+                <!-- Product Start-->
+                {% for i in products %}
+                <div class="col-lg-4 col-md-6 col-12 mb-60">
+                   
+                    <div class="product">
+
+                        <!-- Image Wrapper -->
+                        <div class="image">
+                            <!-- Image -->
+                            <a href="product-details.html" class="img"><img src="{{i.product_image.url}}" height="300px" width="300px" alt="Product"></a>
+                            <!-- Wishlist -->
+                            <!-- <a href="#" class="wishlist"><i class="fa fa-heart-o"></i></a> -->
+                            <!-- Label -->
+                            <!-- <span class="label">New</span> -->
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="content">
+                            
+                            <!-- Head Content -->
+                            <div class="head fix">
+                               
+                                <!-- Title & Category -->
+                                <div class="title-category float-left">
+                                    <h5 class="title"><a href="#">{{i.product_name}}</a></h5>
+                                    <a href="#" class="category">{{i.product_category}}</a>
+                                </div>
+                                <!-- Price -->
+                                <div class="price float-right">
+                                    <span class="new">Rs.{{i.product_price}}</span>
+                                    <!-- Old Price Mockup If Need -->
+                                    <!-- <span class="old">$46</span> -->
+                                </div>
+                                
+                            </div>
+                            
+                            <!-- Action Button -->
+                            <div class="action-button fix">
+                                <a href="{% url 'sellerdeleteproducts' pk=i.pk %}">Delete</a>
+                                <a href="{% url 'sellereditproducts' pk=i.pk %} ">Edit</a>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    
+                </div><!-- Product End-->
+                {% endfor %}
+            </div><!-- Product Wrapper End-->
+            
+        </div>
+    </div><!-- Product Section End-->
+    
+       
+    
+    
+
+</div><!-- Main Wrapper End -->
+
+<!-- JS============================================ -->
+
+<!-- jQuery JS -->
+</body>
+
+</html>
+{% endblock %}

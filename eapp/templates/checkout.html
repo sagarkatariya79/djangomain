@@ -1,0 +1,137 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+</head>
+
+<body>
+
+<!-- Main Wrapper Start -->
+<div id="main-wrapper" class="section">
+    
+
+    <!-- Page Banner Section Start-->
+    <div class="page-banner-section section" style="background-image: url({% static 'img/bg/page-banner.jpg' %})">
+        <div class="container">
+            <div class="row">
+                
+                <!-- Page Title Start -->
+                <div class="page-title text-center col">
+                    <h1>Checkout</h1>
+                </div><!-- Page Title End -->
+                
+            </div>
+        </div>
+    </div><!-- Page Banner Section End-->
+    
+       
+    <!-- Checkout Section Start-->
+    <div class="cart-section section pt-120 pb-90">
+        <div class="container">
+            <div class="row">
+               
+                <div class="col-lg-6 col-12 mb-30">
+                   
+                    <!-- Checkout Accordion Start -->
+                    <div id="checkout-accordion" class="panel-group">
+                       
+
+                        
+                        <!-- Billing Method -->
+                        <div class="order-details-wrapper">
+                            <div class="order-details-wrapper">
+                                <h2>Shipping Details</h2>
+                                                           
+                                    <!-- <form action="#" class="billing-form checkout-form"> -->
+                                        <div class="row">
+                                            <div class="col-12 mb-20">                              
+                                                <input type="text" readonly  value="{{user.address}}">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">									
+                                                <input readonly type="text" placeholder="First Name" value="{{user.fname}}">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">								
+                                                <input readonly type="text" placeholder="Last Name"value="{{user.lname}}">
+                                            </div>
+                                            <div class="col-12 mb-20">
+                                                <input placeholder="Street address" type="text">
+                                            </div>
+                                            <div class="col-12 mb-20">
+                                                <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
+                                            </div>
+                                            <div class="col-12 mb-20">
+                                                <input placeholder="Town / City" type="text">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">									
+                                                <input type="text" placeholder="State / County">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">									
+                                                <input placeholder="Postcode / Zip" type="text">
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">									
+                                                <input readonly type="email" placeholder="Email Address" value="{{user.email}}" >
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-20">									
+                                                <input readonly placeholder="Phone Number" type="text" value="{{user.mobile}}" >
+                                            </div>							
+                                        </div>
+                                    <!-- </form> -->
+                                    
+                            </div>            
+                        </div>
+                        
+                        
+                    </div><!-- Checkout Accordion Start -->
+                    
+                </div>
+                
+                <!-- Order Details -->
+                <div class="col-lg-6 col-12 mb-30">
+                   
+                    <div class="order-details-wrapper">
+                        <h2>your order</h2>
+                        <div class="order-details">
+                            <form action="{% url 'pay' %}" name="placeorder" method="post">
+                                {% csrf_token %}
+                                <ul>
+                                    <li><p class="strong">product</p><p class="strong">total</p></li>
+                                   {% for i in cart %}
+                                    <li><p>{{i.product.product_name}} x {{i.product_qty}} </p><p>{{i.product_price}}</p></li>
+                                    {% endfor %}
+                                    <li><p class="strong">cart subtotal</p><p class="strong">Rs.{{total_price}}</p></li>
+                                    <li><p class="strong">shipping</p>
+                                        <p>
+                                        <input type="radio" name="order-shipping" id="free" /><label for="free">Free Shipping</label>
+                                    </p></li>
+                                    <li><p class="strong">order total</p><p class="strong">Rs.{{total_price}}</p></li>
+                                    <li>
+                                        
+                                            
+                                        <input type="hidden" name="amount" value="{{total_price}}">
+                                        <input class="button" type="submit" name="submit" value="place order">
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div><!-- Checkout Section End-->
+
+       
+    <!-- Footer Section Start-->
+
+</div><!-- Main Wrapper End -->
+</body>
+
+
+</html>
+{% endblock %}

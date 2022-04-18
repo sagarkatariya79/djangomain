@@ -1,0 +1,102 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<head>
+    
+</head>
+
+<body>
+
+<!-- Main Wrapper Start -->
+<div id="main-wrapper" class="section">
+    
+    
+       
+    <!-- Page Banner Section Start-->
+    <div class="page-banner-section section" style="background-image: url({% static 'img/bg/page-banner.jpg' %})">
+        <div class="container">
+            <div class="row">
+                
+                <!-- Page Title Start -->
+                <div class="page-title text-center col">
+                    <h1>shop page</h1>
+                </div><!-- Page Title End -->
+                
+            </div>
+        </div>
+    </div><!-- Page Banner Section End-->
+    
+       
+    <!-- Product Section Start-->
+    <div class="product-section section pt-120 pb-120">
+        <div class="container">
+            
+            <!-- Product Wrapper Start-->
+            <div class="row">
+                
+                <!-- Product Start-->
+                {% for i in cartorder %}
+                <div class="col-lg-4 col-md-6 col-12 mb-60">
+                   
+                    <div class="product">
+
+                        <!-- Image Wrapper -->
+                        <div class="image">
+                            <!-- Image -->
+                            <a href="{% url 'product_detail' pk=i.pk %}" class="img"><img src="{{i.product.product_image.url}}" style="height: 300px;" alt="Product"></a>
+                                
+                            <!-- Label -->
+                            <!-- <span class="label">New</span> -->
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="content">
+                            
+                            <!-- Head Content -->
+                            <div class="head fix">
+                               
+                                <!-- Title & Category -->
+                                <div class="title-category float-left">
+                                    <h5 class="title"><a href="{% url 'product_detail' pk=i.pk %}">{{i.product.product_name}}</a></h5>
+                                    <a href="shop.html" class="category">{{i.product.product_category}}</a>
+                                </div>
+                                <!-- Price -->
+                                <div class="price float-right">
+                                    <span class="new">Rs.{{i.product.product_price}}</span>
+                                    <!-- Old Price Mockup If Need -->
+                                    <!-- <span class="old">$46</span> -->
+                                </div>
+                                
+                            </div>
+                            
+                            <!-- Action Button -->
+                                <div class="action-button fix">
+                                    <a href="{% url 'cancel_order' pk=i.pk %}">Cancel order</a>
+                                </div>                            
+                        
+                            
+                        </div>
+
+                    </div>
+                    
+                </div>
+                {% endfor %}
+                <!-- Product End-->
+                
+                
+                
+            </div><!-- Product Wrapper End-->
+            
+        </div>
+    </div><!-- Product Section End-->
+
+</div><!-- Main Wrapper End -->
+</body>
+
+</html>
+{% endblock %}

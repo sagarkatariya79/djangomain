@@ -1,0 +1,103 @@
+{% extends 'sellerheader.html' %}
+{% load static %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+<head>
+</head>
+<body>
+
+<!-- Main Wrapper Start -->
+<div id="main-wrapper" class="section">
+    
+       
+    <!-- Page Banner Section Start-->
+    <div class="page-banner-section section" style="background-image: url({% static 'img/bg/page-banner.jpg' %})">
+        <div class="container">
+            <div class="row">
+                
+                <!-- Page Title Start -->
+                <div class="page-title text-center col">
+                    <h1>Add Products</h1>
+                </div>
+                <!-- Page Title End -->
+                
+            </div>
+        </div>
+    </div><!-- Page Banner Section End-->
+    
+       
+    <!-- Contact Section Start-->
+    <div class="contact-section section bg-white pt-10">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-xl-10 col-12 ml-auto mr-auto">
+                    
+                    <div class="contact-wrapper" style="margin-bottom: 20px; margin-top: 10px;">
+                        <div class="row">
+                            <div class="contact-info col-lg-2 col-12">
+                                <div class="contact-social">
+                                </div>
+                            </div>
+                            <div class="contact-form col-lg-7 col-12">
+                                <h4 class="title">Add Products</h4>
+                                {% if msg %}
+                                   <font color= "red" ><b>{{msg}}</b> </font>
+                                   <br>
+                                {% endif %}
+
+                                <form name="signup" enctype="multipart/form-data" action="{% url 'selleraddproducts' %}" method="post">
+                                    
+                                    {% csrf_token %}
+                                    <div>
+                                    <select class="container" name ="product_category">
+                                        <option align="center">----Select Category----</option>
+                                        <option value="Leptop">Leptop</option>
+                                        <option value="Mobile">Mobile</option>
+                                        <option value="Camera">Camera</option>
+                                    </select>
+                                    </div>
+                                    <div>
+                                    <select class="container" name="product_company">
+                                        <option align="center">----Select Company----</option>
+                                        <option value="Hp">Hp</option>
+                                        <option value="Dell">Dell</option>
+                                        <option value="Lenovo">Lenovo</option>
+                                        <option value="Xaiomi">Xaiomi</option>
+                                        <option value="Samsung">Samsung</option>
+                                        <option value="Vivo">Vivo</option>
+                                        <option value="Canon">Canon</option>
+                                        <option value="Nikon">Nikon</option>
+                                        <option value="Fujifilm">Fujifilm</option>
+                                    </select>
+                                    </div>
+                                    <input type="text" name="product_name" placeholder="Add Name">
+                                    
+                                    <input type="text" name="product_desc" placeholder="Add Description">
+                                    <input type="text" name="product_price" placeholder="Add Price">
+                                    <input type="file" name="product_image" >
+                                    <input type="submit" value="Submit">
+                                </form>
+                                <p class="form-messege"></p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            
+            </div>
+        </div>
+    </div><!-- Contact Section End-->
+    
+
+</div><!-- Main Wrapper End -->
+
+
+</body>
+
+</html>
+{% endblock %}
